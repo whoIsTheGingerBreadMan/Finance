@@ -1,6 +1,7 @@
 from yahoo_finance_api2 import share
 from yahoo_finance_api2.exceptions import YahooFinanceError
 import datetime
+import numpy as np
 import pytz
 from .Plots import CandleStick
 from .Indicator import simple_moving_average
@@ -39,11 +40,12 @@ class StockData:
             for time_stamp in self.symbol_data["timestamp"]
         ]
 
-        self.close = self.symbol_data["close"]
-        self.open = self.symbol_data["open"]
-        self.high = self.symbol_data["high"]
-        self.low = self.symbol_data["low"]
-        self.volume = self.symbol_data["volume"]
+        self.close = np.array(self.symbol_data["close"])
+        self.open = np.array(self.symbol_data["open"])
+        self.high = np.array(self.symbol_data["high"])
+        self.low = np.array(self.symbol_data["low"])
+        self.volume = np.array(self.symbol_data["volume"])
+        self.returns = self.close-self.open
 
     def plot_candle_stick(self):
         plot = CandleStick(self)
@@ -59,3 +61,4 @@ class StockData:
             return
 
         return simple_moving_average(data, window)
+
