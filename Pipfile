@@ -9,6 +9,7 @@ verify_ssl = true
 yahoo_finance_api2 = "*"
 pytz="*"
 plotly="*"
+numpy="*"
 
 [requires]
 python_version = "3.7"

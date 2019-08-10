@@ -3,6 +3,7 @@ from yahoo_finance_api2.exceptions import YahooFinanceError
 import datetime
 import pytz
 from .Plots import CandleStick
+from .Indicator import simple_moving_average
 
 class StockData:
     def __init__(self,ticker,period_type="DAY",number_of_periods=10,frequency_type="MINUTE",number_of_frequency=5,timezone = "US/Eastern"):
@@ -36,6 +37,17 @@ class StockData:
     def plot_candle_stick(self):
         plot = CandleStick(self)
         plot.show()
+
+    def moving_average(self,window=10,based_on="close"):
+        if based_on == "close":
+            data = self.close
+        elif based_on == "open":
+            data = self.open
+        else:
+            print("The data doesn't exist")
+            return
+
+        return simple_moving_average(data,window)
 
 
 
