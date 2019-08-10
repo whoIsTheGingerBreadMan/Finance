@@ -8,11 +8,10 @@ def CandleStick(stockData):
     output_figure = go.Figure(data=candle_stick)
     return output_figure
 
-def LinePlot(stockData,field):
+
+def LinePlot(stockData, field):
     y = stockData.__dict__[field]
-    x = stockData.__dict__['dates']
-    line_plot = go.Scatter(x=x,y=y, mode="lines")
+    x = stockData.__dict__["dates"]
+    line_plot = go.Scatter(x=x, y=y, mode="lines")
     output_figure = go.Figure(data=line_plot)
     return output_figure
-
-

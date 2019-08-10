@@ -3,7 +3,7 @@ from yahoo_finance_api2.exceptions import YahooFinanceError
 import datetime
 import numpy as np
 import pytz
-from .Plots import CandleStick,LinePlot
+from .Plots import CandleStick, LinePlot
 from .Indicator import simple_moving_average
 
 
@@ -45,20 +45,17 @@ class StockData:
         self.high = np.array(self.symbol_data["high"])
         self.low = np.array(self.symbol_data["low"])
         self.volume = np.array(self.symbol_data["volume"])
-        self.returns = self.close-self.open
+        self.returns = self.close - self.open
 
     def plot_candle_stick(self):
         plot = CandleStick(self)
         plot.show()
 
-    def plot_line(self,field="close"):
-
+    def plot_line(self, field="close"):
         plot = LinePlot(self, field)
         plot.show()
-
 
     def moving_average(self, window=10, field="close"):
         data = self.__dict__[field]
         sma = simple_moving_average(data, window)
         return sma
-
