@@ -4,7 +4,7 @@ import datetime
 import numpy as np
 import pytz
 from .Plots import CandleStick, LinePlot
-from .Indicator import simple_moving_average,relative_strength_index
+from .Indicator import simple_moving_average, relative_strength_index
 
 
 class StockData:
@@ -46,9 +46,15 @@ class StockData:
         self.low = np.array(self.symbol_data["low"])
         self.volume = np.array(self.symbol_data["volume"])
         self.returns = self.close - self.open
+        self.calculated_indicators = {}
 
-    def RSI(self,window):
-        return relative_strength_index(self.returns/self.open,window=window)
+    def RSI(self, window=14):
+
+        new_indicator = relative_strength_index(self.returns / self.open, window=window)
+        self.add_indicator("RSI" + str(window), {"properties": {"window": window}, "value": new_indicator})
+
+    def add_indicator(self, name, value):
+        self.calculated_indicators[name] = value
 
     def plot_candle_stick(self):
         plot = CandleStick(self)
